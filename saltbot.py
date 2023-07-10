@@ -23,14 +23,13 @@ async def on_ready():
 @saltBot.command()
 async def nickname(ctx, *nickname):
     # error checking
-    if len(nickname) == 0:
+    if not nickname:
         await ctx.channel.send("um what do you want me to change your name to again?")
         return
     # TODO: Implement error checking for permissions and send to channel if perms are insufficient
     # Force everyone to be a Boi
     separator = " "
-    newName = separator.join(nickname)
-    newName += " Boi"
+    newName = f"{separator.join(nickname)} Boi"
     await ctx.author.edit(nick=newName)
     # add Member role if not present
     role = discord.utils.get(ctx.guild.roles, name="Member")
@@ -41,7 +40,7 @@ async def nickname(ctx, *nickname):
 
 @saltBot.command()
 async def ping(ctx):
-    await ctx.channel.send("pongus bongus, latency was " +  str(saltBot.latency) + "ms")
+    await ctx.channel.send(f"pongus bongus, latency was {str(saltBot.latency)}ms")
 
 @saltBot.command()
 async def die(ctx):
